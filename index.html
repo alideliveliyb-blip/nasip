@@ -6,39 +6,41 @@
     <title>KBA - Kendilik Bilinci Akademisi</title>
     <style>
         :root {
-            --gold: #d4af37; --bg: #050505; --card: #121212;
-            --olur: #4ecca3; --sikinti: #fca311; --olmaz: #e94560; --azam: #ff00ff;
+            --gold: #b8860b; --bg: #f4f7f6; --card: #ffffff;
+            --olur: #2ecc71; --sikinti: #f1c40f; --olmaz: #e74c3c; --azam: #9b59b6;
         }
-        body { font-family: 'Garamond', serif; background: var(--bg); color: #e0e0e0; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .app-container { width: 95%; max-width: 850px; background: var(--card); padding: 40px; border-radius: 30px; box-shadow: 0 0 50px rgba(212, 175, 55, 0.2); border: 1px solid #222; text-align: center; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: #333; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .app-container { width: 95%; max-width: 900px; background: var(--card); padding: 40px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid #ddd; text-align: center; }
         
-        .logo { font-size: 60px; font-weight: bold; color: var(--gold); letter-spacing: 8px; margin-bottom: 5px; }
-        .kba-sub { font-size: 14px; color: var(--gold); letter-spacing: 3px; margin-bottom: 30px; text-transform: uppercase; }
+        .logo { font-size: 50px; font-weight: bold; color: var(--gold); letter-spacing: 5px; margin-bottom: 5px; }
+        .kba-sub { font-size: 14px; color: #777; letter-spacing: 2px; margin-bottom: 30px; font-weight: bold; }
 
-        .screen { display: none; animation: fadeIn 0.8s forwards; }
+        .screen { display: none; animation: fadeIn 0.5s forwards; }
         .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        input { background: #1a1a1a; border: 1px solid var(--gold); padding: 15px; color: white; border-radius: 10px; margin: 10px; width: 70%; font-size: 16px; text-align: center; }
-        .btn { background: var(--gold); color: #000; border: none; padding: 18px 40px; border-radius: 50px; cursor: pointer; font-weight: bold; margin-top: 25px; transition: 0.3s; }
-        .btn:hover { background: #fff; box-shadow: 0 0 20px var(--gold); transform: scale(1.05); }
+        input { background: #fff; border: 2px solid #ddd; padding: 15px; color: #333; border-radius: 10px; margin: 10px; width: 70%; font-size: 16px; text-align: center; }
+        input:focus { border-color: var(--gold); outline: none; }
+        .btn { background: var(--gold); color: white; border: none; padding: 18px 40px; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 25px; transition: 0.3s; font-size: 16px; }
+        .btn:hover { background: #966d09; transform: translateY(-2px); }
 
-        .manifesto { text-align: justify; font-style: italic; line-height: 1.6; background: #0a0a0a; padding: 25px; border-left: 4px solid var(--gold); margin: 25px 0; }
+        .manifesto { text-align: justify; line-height: 1.6; background: #fff9e6; padding: 25px; border-left: 5px solid var(--gold); margin: 25px 0; color: #555; }
 
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; margin-top: 30px; }
-        .house-node { background: #1a1a1a; border: 1px solid #333; padding: 20px; border-radius: 15px; cursor: pointer; transition: 0.3s; }
-        .house-node:hover { border-color: var(--gold); background: #222; }
+        .house-node { background: #fff; border: 1px solid #eee; padding: 20px; border-radius: 15px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .house-node:hover { transform: scale(1.05); border-color: var(--gold); }
 
-        .detail-view { background: #0a0a0a; border: 1px solid var(--gold); padding: 25px; margin-top: 25px; border-radius: 20px; display: flex; align-items: center; text-align: left; gap: 20px; }
-        .planet-icon { width: 80px; height: 80px; border-radius: 50%; border: 1px solid var(--gold); }
+        .detail-view { background: #fff; border: 2px solid var(--gold); padding: 25px; margin-top: 25px; border-radius: 20px; text-align: left; animation: slideIn 0.4s; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .badge { padding: 5px 12px; border-radius: 5px; font-weight: bold; font-size: 13px; }
-        .bg-azam { background: var(--azam); color: #fff; }
-        .bg-olur { background: var(--olur); color: #000; }
-        .bg-sikinti { background: var(--sikinti); color: #000; }
-        .bg-olmaz { background: var(--olmaz); color: #fff; }
+        .badge { padding: 6px 15px; border-radius: 20px; font-weight: bold; font-size: 13px; color: white; text-transform: uppercase; }
+        .bg-azam { background: var(--azam); box-shadow: 0 0 10px var(--azam); }
+        .bg-olur { background: var(--olur); }
+        .bg-sikinti { background: var(--sikinti); color: #333; }
+        .bg-olmaz { background: var(--olmaz); }
 
-        footer { margin-top: 40px; font-size: 12px; color: #555; border-top: 1px solid #222; padding-top: 20px; }
+        .info-tag { font-size: 14px; margin-top: 10px; padding: 10px; border-radius: 8px; background: #f9f9f9; border-left: 3px solid #ccc; }
+        footer { margin-top: 40px; font-size: 12px; color: #999; border-top: 1px solid #eee; padding-top: 20px; }
     </style>
 </head>
 <body>
@@ -46,21 +48,21 @@
 <div class="app-container">
     <div id="sc1" class="screen active">
         <div class="logo">KBA</div>
-        <div class="kba-sub">Kendilik Bilinci Akademisi</div>
-        <button class="btn" onclick="show(2)">GİRİŞ YAP</button>
+        <div class="kba-sub">KENDİLİK BİLİNCİ AKADEMİSİ</div>
+        <button class="btn" onclick="show(2)">SİSTEME GİRİŞ</button>
     </div>
 
     <div id="sc2" class="screen">
         <h3>KBA MANİFESTOSU</h3>
         <div class="manifesto">
-            "Bu sistem isminizin frekansı ile zamanın Hicri döngüleri arasındaki matematiksel uyumdur. Amacımız; 'Bile Bile Zaaf' noktalarınızı fark ettirerek sizi İtidal çizgisine davet etmektir."
+            "Bu analiz, isminizin frekansı ile zamanın Hicri döngüleri arasındaki matematiksel uyumdur. Celal ve Cemal etkilerin dengelenmesi, içsellik ve dışsallık uyumunun sağlanması için bir irade rehberidir."
         </div>
-        <button class="btn" onclick="show(3)">KABUL EDİYORUM</button>
+        <button class="btn" onclick="show(3)">ANLADIM</button>
     </div>
 
     <div id="sc3" class="screen">
-        <h3>ANALİZ İÇİN VERİ GİRİN</h3>
-        <input type="text" id="uName" placeholder="Adınız">
+        <h3>ANALİZ VERİLERİ</h3>
+        <input type="text" id="uName" placeholder="Adınız ve Soyadınız">
         <input type="date" id="uDate">
         <br>
         <button class="btn" onclick="runKBA()">ANALİZİ BAŞLAT</button>
@@ -70,49 +72,40 @@
         <h2 id="welcome" style="color: var(--gold);"></h2>
         <div class="grid-container" id="nodes"></div>
         <div id="details"></div>
-        <button class="btn" onclick="show(5)" style="margin-top: 20px;">ÖZET VE DANIŞMANLIK</button>
-    </div>
-
-    <div id="sc5" class="screen">
-        <h3>TEKAMÜL ÖZETİ</h3>
-        <div id="summaryArea" style="text-align: left; padding: 20px; background: #0a0a0a; border-radius: 10px;"></div>
-        <div class="manifesto">
-            <strong>DANIŞMANLIK:</strong> Bu verileri yönetmek ve İtidal kapısını açmak için bize ulaşabilirsiniz.
-        </div>
-        <div class="logo" style="font-size: 30px;">KBA</div>
-        <button class="btn" onclick="location.reload()">YENİ ANALİZ</button>
+        <button class="btn" onclick="location.reload()" style="background: #555;">YENİ ANALİZ</button>
     </div>
 
     <footer>
-        Kendilik Bilinci Akademisi © 2026 | Tüm Hakları Mahfuzdur.
+        Kendilik Bilinci Akademisi © 2026 | "Kendini Bilmek, Hakk'ı Bilmektir."
     </footer>
 </div>
 
 <script>
-    // Gerçek Hicri Çevirici Fonksiyonu
     function getHicriDay(date) {
-        let d = date.getDate();
-        let m = date.getMonth() + 1;
-        let y = date.getFullYear();
+        let d = date.getDate(); let m = date.getMonth() + 1; let y = date.getFullYear();
         let jd = Math.floor((1461 * (y + 4800 + Math.floor((m - 14) / 12))) / 4) +
                  Math.floor((367 * (m - 2 - 12 * (Math.floor((m - 14) / 12)))) / 12) -
                  Math.floor((3 * (Math.floor((y + 4900 + Math.floor((m - 14) / 12)) / 100))) / 4) + d - 32075;
-        let l = jd - 1948440 + 10632;
-        let n = Math.floor((l - 1) / 10631);
-        l = l - 10631 * n + 354;
+        let l = jd - 1948440 + 10632; let n = Math.floor((l - 1) / 10631); l = l - 10631 * n + 354;
         let j = (Math.floor((10985 - l) / 5316)) * (Math.floor((50 * l) / 17719)) + (Math.floor(l / 5670)) * (Math.floor((43 * l) / 15238));
         l = l - (Math.floor((30 - j) / 15)) * (Math.floor((17719 * j) / 50)) - (Math.floor(j / 16)) * (Math.floor((15238 * j) / 43)) + 29;
         let m_h = Math.floor((24 * l) / 709);
         return l - Math.floor((709 * m_h) / 24);
     }
 
-    const houseConfig = [
-        { g: "Mars", t: "Şahsiyet", k: [1, 3, 2] }, { g: "Venüs", t: "Rızık", k: [1, 2, 3] },
-        { g: "Merkür", t: "İletişim", k: [3, 2, 1] }, { g: "Ay", t: "Aile", k: [1, 3, 2] },
-        { g: "Güneş", t: "Neşe", k: [1, 2, 3] }, { g: "Merkür", t: "Hizmet", k: [3, 2, 1] },
-        { g: "Mars", t: "Ortaklık", k: [1, 3, 2] }, { g: "Venüs", t: "Dönüşüm", k: [1, 2, 3] },
-        { g: "Jüpiter", t: "Vizyon", k: [1, 2, 3] }, { g: "Satürn", t: "Kariyer", k: [1, 2, 2] },
-        { g: "Satürn", t: "Sosyal", k: [1, 2, 2] }, { g: "Jüpiter", t: "Bilinç", k: [1, 2, 3] }
+    const config = [
+        { g: "Mars", t: "Şahsiyet", esma: "Ya Malik Ya Kuddüs", evre: "AyMars" },
+        { g: "Venüs", t: "Rızık", esma: "Ya Kafi Ya Gani", evre: "VGJ" },
+        { g: "Merkür", t: "İletişim", esma: "Ya Ali Ya Azim", evre: "Mer" },
+        { g: "Ay", t: "Aile", esma: "Ya Rahman Ya Rahim", evre: "AyMars" },
+        { g: "Güneş", t: "Neşe", esma: "Ya Hay Ya Kayyum", evre: "VGJ" },
+        { g: "Merkür", t: "Hizmet", esma: "Ya Ali Ya Azim", evre: "Mer" },
+        { g: "Mars", t: "Ortaklık", esma: "Ya Malik Ya Kuddüs", evre: "AyMars" },
+        { g: "Venüs", t: "Dönüşüm", esma: "Ya Kafi Ya Gani", evre: "VGJ" },
+        { g: "Jüpiter", t: "Vizyon", esma: "Ya Kebir Ya Müteal", evre: "VGJ" },
+        { g: "Satürn", t: "Kariyer", esma: "Ya Fettah Ya Rezzak", evre: "Sat" },
+        { g: "Satürn", t: "Sosyal", esma: "Ya Fettah Ya Rezzak", evre: "Sat" },
+        { g: "Jüpiter", t: "Bilinç", esma: "Ya Kebir Ya Müteal", evre: "VGJ" }
     ];
 
     let results = [];
@@ -125,44 +118,58 @@
     function runKBA() {
         const name = document.getElementById('uName').value;
         const dateStr = document.getElementById('uDate').value;
-        if(!name || !dateStr) return alert("Eksik veri!");
+        if(!name || !dateStr) return;
 
-        const userKod = (name.length % 9) || 9;
+        const kod = (name.length % 9) || 9;
         let nodes = document.getElementById('nodes');
         nodes.innerHTML = "";
         results = [];
-
         let baseDate = new Date(dateStr);
 
-        houseConfig.forEach((h, i) => {
+        config.forEach((h, i) => {
             let evDate = new Date(baseDate);
             evDate.setMonth(evDate.getMonth() + i);
             let hDay = getHicriDay(evDate);
-            let evreIdx = Math.ceil(hDay / 10) - 1;
-            let status = h.k[evreIdx] === 1 ? "OLUR" : (h.k[evreIdx] === 2 ? "SIKINTILI" : "OLMAZ");
-            
-            if (userKod === 2 && i === 9) status = "İSMI AZAM";
+            let status = "";
 
-            results.push({ ...h, status, hDay, id: i+1 });
+            // Süleyman 191 Evre Mantığı
+            if (h.evre === "AyMars") {
+                status = hDay <= 10 ? "OLUR" : (hDay <= 20 ? "OLMAZ" : "SIKINTILI");
+            } else if (h.evre === "Mer") {
+                status = hDay <= 10 ? "OLMAZ" : (hDay <= 20 ? "SIKINTILI" : "OLUR");
+            } else if (h.evre === "VGJ") {
+                status = hDay <= 10 ? "OLUR" : (hDay <= 20 ? "SIKINTILI" : "OLMAZ");
+            } else if (h.evre === "Sat") {
+                status = hDay <= 15 ? "GERÇEKLEŞİR" : "GERÇEKLEŞMEZ";
+            }
+
+            if (kod === 2 && i === 9) status = "İSMI AZAM";
+
+            results.push({ ...h, status, hDay, kod, id: i+1 });
             nodes.innerHTML += `<div class="house-node" onclick="view(${i})">${i+1}. EV<br><small>${h.t}</small></div>`;
         });
-
-        document.getElementById('welcome').innerText = "Hoş Geldin " + name;
+        document.getElementById('welcome').innerText = name + " - Analiz Sonucu";
         show(4);
     }
 
     function view(i) {
         const d = results[i];
-        let cls = d.status === "OLUR" ? "bg-olur" : (d.status === "SIKINTILI" ? "bg-sikinti" : (d.status === "OLMAZ" ? "bg-olmaz" : "bg-azam"));
-        let teshis = d.status === "OLUR" ? "Yolun açık, iraden kavi." : (d.status === "SIKINTILI" ? "Onarım ve düzenleme şart." : "Nefsi zaaf alanı, dikkat!");
+        let cls = d.status === "OLUR" || d.status === "GERÇEKLEŞİR" ? "bg-olur" : 
+                  (d.status === "SIKINTILI" ? "bg-sikinti" : 
+                  (d.status === "İSMI AZAM" ? "bg-azam" : "bg-olmaz"));
         
+        let etki = d.kod % 2 === 0 ? "Cemal Etki (İçsel Yumuşaklık)" : "Celal Etki (Dışsal Keskinlik)";
+        let denge = d.status === "OLMAZ" ? "Dışsallıkta İrade Kaybı" : "İçsellik ve Dışsallık Uyumu";
+
         document.getElementById('details').innerHTML = `
             <div class="detail-view">
-                <div>
-                    <h3>${d.id}. Ev: ${d.t} (${d.g})</h3>
-                    <p>Arabi Gün: <strong>${d.hDay}</strong></p>
-                    <p>Durum: <span class="badge ${cls}">${d.status}</span></p>
-                    <p><em>${teshis}</em></p>
+                <h3>${d.id}. Ev: ${d.t} (${d.g})</h3>
+                <p>Arabi Gün: <strong>${d.hDay}</strong> | Durum: <span class="badge ${cls}">${d.status}</span></p>
+                <p><strong>Esma Terkibi:</strong> ${d.esma}</p>
+                <div class="info-tag">
+                    <strong>Enerji Analizi:</strong> ${etki}<br>
+                    <strong>İrade Dengesi:</strong> ${denge}<br>
+                    ${d.status === "İSMI AZAM" ? "<strong>ÖZEL NOT:</strong> Bu alan senin kilit noktandır, ismi azam bereketiyle onarılmalıdır." : ""}
                 </div>
             </div>`;
     }
