@@ -3,72 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KBA - Profesyonel Analiz Sistemi</title>
+    <title>KBA - Profesyonel Hicri Analiz</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root { --gold: #b8860b; --azam: #8e44ad; --olur: #27ae60; --sikinti: #e67e22; --olmaz: #c0392b; --bg: #f4f7f6; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; padding: 10px; color: #2d3436; }
-        .app-container { width: 100%; max-width: 800px; background: #fff; margin: 15px auto; padding: 25px; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        
-        .node-azam { 
-            background: linear-gradient(135deg, #fdfaff 0%, #f3e5f5 100%) !important; 
-            border: 3px solid var(--azam) !important;
-            box-shadow: 0 8px 20px rgba(142, 68, 173, 0.25);
-            transform: scale(1.03);
-        }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: 20px; }
-        .house-box { background: #fff; border: 1px solid #f0f0f0; padding: 15px 5px; border-radius: 20px; text-align: center; cursor: pointer; transition: 0.3s; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; padding: 10px; }
+        .app-container { width: 100%; max-width: 850px; background: #fff; margin: 10px auto; padding: 25px; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .node-azam { background: linear-gradient(135deg, #fdfaff 0%, #f3e5f5 100%) !important; border: 3px solid var(--azam) !important; box-shadow: 0 5px 15px rgba(142,68,173,0.2); transform: scale(1.03); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 12px; margin-top: 20px; }
+        .house-box { background: #fff; border: 1px solid #f0f0f0; padding: 15px 5px; border-radius: 20px; text-align: center; cursor: pointer; transition: 0.3s; font-size: 13px; }
         .node-olur { border-bottom: 6px solid var(--olur); }
         .node-sikinti { border-bottom: 6px solid var(--sikinti); }
         .node-olmaz { border-bottom: 6px solid var(--olmaz); }
-
-        .header { text-align: center; padding: 20px; background: #fbfcfc; border-radius: 20px; border: 1px solid #eee; }
-        .header h2 { color: var(--gold); margin: 0; text-transform: uppercase; }
-
-        .analysis-card { background: #fff; border: 2px solid var(--gold); padding: 20px; border-radius: 25px; margin-top: 20px; position: relative; overflow: hidden; }
-        .desc-box { background: #f9fbfa; padding: 15px; border-radius: 18px; border-left: 5px solid var(--gold); margin-top: 15px; line-height: 1.6; font-size: 14px; }
-        
-        input { width: 90%; padding: 12px; margin: 10px 0; border-radius: 12px; border: 1px solid #ddd; text-align: center; font-size: 16px; }
-        .btn-main { background: var(--gold); color: white; border: none; padding: 15px 40px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 95%; }
-        
-        .wa-btn { background: #25d366; color: white; padding: 15px; border-radius: 15px; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-weight: 700; margin-top: 15px; }
-        .screenshot-btn { background: #34495e; color: white; padding: 10px; border-radius: 10px; border: none; width: 100%; margin-top: 10px; cursor: pointer; font-weight: 600; }
+        .header-card { text-align: center; padding: 20px; background: #fbfcfc; border-radius: 25px; border: 1px solid #eee; margin-bottom: 20px; }
+        .manifesto { font-size: 12px; font-style: italic; color: #7f8c8d; margin-top: 10px; line-height: 1.4; padding: 0 15px; }
+        .analysis-detail { background: #fff; border: 2px solid var(--gold); padding: 20px; border-radius: 25px; margin-top: 20px; }
+        .desc-content { background: #f9fbfa; padding: 15px; border-radius: 18px; border-left: 5px solid var(--gold); margin-top: 15px; line-height: 1.6; font-size: 14px; }
+        input { width: 85%; padding: 12px; margin: 8px 0; border-radius: 12px; border: 1px solid #ddd; text-align: center; }
+        .btn-main { background: var(--gold); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 90%; }
+        .wa-btn { background: #25d366; color: white; padding: 15px; border-radius: 15px; text-decoration: none; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-top: 15px; gap: 10px; }
     </style>
 </head>
 <body>
 
 <div class="app-container">
-    <div id="loginScreen" style="text-align: center;">
-        <h1 style="color:var(--gold)">KBA ANALİZ SİSTEMİ</h1>
-        <input type="text" id="userName" placeholder="AD SOYAD">
-        <input type="number" id="userEbced" placeholder="EBCED DEĞERİ">
-        <input type="date" id="userBirth">
-        <button class="btn-main" onclick="startKBA()">ANALİZİ BAŞLAT</button>
+    <div id="screen1" style="text-align: center;">
+        <h1 style="color:var(--gold); margin-bottom:5px;">KBA SİSTEMİ</h1>
+        <p class="manifesto">"Rakamlar yalan söylemez, fıtrat asla şaşmaz."</p>
+        <input type="text" id="nameIn" placeholder="AD SOYAD">
+        <input type="number" id="ebcedIn" placeholder="EBCED DEĞERİ">
+        <input type="date" id="birthIn">
+        <button class="btn-main" onclick="runKBA()">MÜHRÜ ÇÖZ VE ANALİZ ET</button>
     </div>
 
-    <div id="resultScreen" style="display:none;">
-        <div id="captureArea" style="padding: 10px; background: #fff; border-radius: 20px;">
-            <div class="header">
-                <h2 id="outName"></h2>
-                <div id="outMeta" style="font-size:13px; color:#7f8c8d; margin-top:5px;"></div>
-                <div id="outKod" style="font-weight:800; color:var(--gold); margin-top:5px;"></div>
+    <div id="screen2" style="display:none;">
+        <div id="captureArea" style="padding:10px; background:#fff; border-radius:20px;">
+            <div class="header-card">
+                <h2 id="outName" style="margin:0; color:var(--gold);"></h2>
+                <div id="outKod" style="font-weight:800; color:#34495e; margin-top:8px;"></div>
+                <div id="outMeta" style="font-size:12px; color:#7f8c8d; margin-top:5px;"></div>
             </div>
-            <div class="grid" id="gridNodes"></div>
-            <div id="cardView"></div>
+            <div class="grid" id="gridHouses"></div>
+            <div id="detailView"></div>
         </div>
-        
-        <div id="actionButtons">
-            <button class="screenshot-btn" onclick="takeScreenshot()">📷 ANALİZ KARTINI KAYDET</button>
-            <div id="waArea"></div>
-            <button onclick="location.reload()" style="width:100%; margin-top:15px; padding:12px; border:none; border-radius:12px; background:#eee; cursor:pointer;">YENİ ANALİZ</button>
-        </div>
+        <button onclick="saveImage()" style="width:100%; margin-top:10px; padding:12px; background:#34495e; color:white; border:none; border-radius:12px; cursor:pointer; font-weight:600;">📷 ANALİZ KARTINI KAYDET</button>
+        <div id="waBtnArea"></div>
+        <button onclick="location.reload()" style="width:100%; margin-top:10px; padding:12px; border:none; border-radius:12px; background:#eee; cursor:pointer;">YENİ SORGULAMA</button>
     </div>
 </div>
 
 <script>
-    const evData = [
+    const dataHouses = [
         { t: "Şahsiyet", g: "Mars" }, { t: "Rızık", g: "Venüs" }, { t: "İletişim", g: "Merkür" },
         { t: "Aile/Ev", g: "Ay" }, { t: "Neşe/Aşk", g: "Güneş" }, { t: "Hizmet/Sağlık", g: "Merkür" },
         { t: "Ortaklık", g: "Venüs" }, { t: "Dönüşüm", g: "Mars" }, { t: "Vizyon", g: "Jüpiter" },
@@ -77,77 +63,93 @@
 
     const esmalar = { "Mars": "Ya Malik Ya Kuddüs", "Venüs": "Ya Kafi Ya Gani", "Merkür": "Ya Ali Ya Azim", "Ay": "Ya Rahman Ya Rahim", "Güneş": "Ya Hay Ya Kayyum", "Jüpiter": "Ya Kebir Ya Müteal", "Satürn": "Ya Fettah Ya Rezzak" };
 
-    const azamRules = {
+    const azamMap = {
         1: ["Venüs", "Güneş"], 2: ["Ay"], 4: ["Ay"], 6: ["Ay"],
         3: ["Merkür", "Jüpiter", "Venüs", "Satürn", "Güneş"],
         5: ["Jüpiter"], 7: ["Jüpiter"], 8: ["Venüs"], 9: ["Mars"]
     };
 
+    function getHijriDay(date) {
+        return new Intl.DateTimeFormat('tr-TN-u-ca-islamic-uma', {day: 'numeric'}).format(date);
+    }
+
     let report = [];
-    let kod = 0;
-    let uBurc = "";
+    let userKod = 0;
 
-    function startKBA() {
-        const name = document.getElementById('userName').value;
-        const ebced = document.getElementById('userEbced').value;
-        const birth = document.getElementById('userBirth').value;
-        if(!name || !ebced || !birth) return alert("Eksik bilgi!");
+    function runKBA() {
+        const name = document.getElementById('nameIn').value;
+        const ebced = document.getElementById('ebcedIn').value;
+        const birth = document.getElementById('birthIn').value;
+        if(!name || !ebced || !birth) return;
 
-        kod = (parseInt(ebced) % 9) || 9;
-        const bDate = new Date(birth);
-        const day = bDate.getDate();
-        
-        // Burç Bulma
-        const m = bDate.getMonth() + 1, d = bDate.getDate();
-        uBurc = (m==3&&d>=21)||(m==4&&d<=19)?"Koç":(m==4&&d>=20)||(m==5&&d<=20)?"Boğa":(m==5&&d>=21)||(m==6&&d<=20)?"İkizler":(m==6&&d>=21)||(m==7&&d<=22)?"Yengeç":(m==7&&d>=23)||(m==8&&d<=22)?"Aslan":(m==8&&d>=23)||(m==9&&d<=22)?"Başak":(m==9&&d>=23)||(m==10&&d<=22)?"Terazi":(m==10&&d>=23)||(m==11&&d<=21)?"Akrep":(m==11&&d>=22)||(m==12&&d<=21)?"Yay":(m==12&&d>=22)||(m==1&&d<=19)?"Oğlak":(m==1&&d>=20)||(m==2&&d<=18)?"Kova":"Balık";
+        userKod = (parseInt(ebced) % 9) || 9;
+        const miladiDate = new Date(birth);
 
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('resultScreen').style.display = 'block';
+        document.getElementById('screen1').style.display = 'none';
+        document.getElementById('screen2').style.display = 'block';
         document.getElementById('outName').innerText = name.toUpperCase();
-        document.getElementById('outMeta').innerText = `${birth.split("-").reverse().join(".")} | ${uBurc} Burcu`;
-        document.getElementById('outKod').innerText = "KBA KADER KODU: " + kod;
+        document.getElementById('outKod').innerText = "KADER KODU: " + userKod;
+        document.getElementById('outMeta').innerText = "Hicri Kaydırma Esaslı Fıtrat Analizi";
 
-        const grid = document.getElementById('gridNodes');
+        const grid = document.getElementById('gridHouses');
         grid.innerHTML = "";
         report = [];
 
         for(let i=0; i<12; i++) {
-            const ev = evData[i];
-            let nite = ((day + i) % 3 === 0) ? "OLUR" : (((day + i) % 3 === 1) ? "SIKINTILI" : "OLMAZ");
-            let isAzam = azamRules[kod] && azamRules[kod].includes(ev.g);
+            const ev = dataHouses[i];
+            let targetDate = new Date(miladiDate);
+            targetDate.setMonth(miladiDate.getMonth() + i); // Her ev için miladi ayı 1 artır
+            
+            let hDay = parseInt(getHijriDay(targetDate));
+            let nite = "";
 
-            report.push({...ev, nite, isAzam, evNo: i+1});
+            // --- SÜLEYMAN'IN KESİN HİCRİ EVRE KURALLARI ---
+            if (hDay >= 1 && hDay <= 10) {
+                nite = (ev.g === "Merkür") ? "OLMAZ" : "OLUR";
+            } 
+            else if (hDay >= 11 && hDay <= 20) {
+                nite = (ev.g === "Ay" || ev.g === "Mars") ? "OLMAZ" : "SIKINTILI";
+            } 
+            else { // 21-30
+                if (ev.g === "Merkür") nite = "OLUR";
+                else if (ev.g === "Ay" || ev.g === "Mars") nite = "SIKINTILI";
+                else nite = "OLMAZ";
+            }
+
+            // Satürn Özel Durumu
+            if (ev.g === "Satürn") nite = (hDay <= 15) ? "OLUR" : "OLMAZ";
+
+            let isAzam = azamMap[userKod] && azamMap[userKod].includes(ev.g);
+            report.push({...ev, nite, isAzam, evNo: i+1, hDay: hDay});
+
             let cls = isAzam ? "node-azam" : ("node-" + nite.toLowerCase().replace("ı","i"));
-            grid.innerHTML += `<div class="house-box ${cls}" onclick="show(
-                ${i})"><b>${i+1}. EV</b><br><small>${isAzam ? '✨ MÜHÜR' : nite}</small></div>`;
+            grid.innerHTML += `<div class="house-box ${cls}" onclick="showDetail(${i})"><b>${i+1}. EV</b><br><small>${isAzam ? '✨ MÜHÜR' : nite}</small><br><span style="font-size:9px; opacity:0.7;">H.Gün: ${hDay}</span></div>`;
         }
-        show(0);
+        showDetail(0);
     }
 
-    function show(i) {
+    function showDetail(i) {
         const d = report[i];
-        const mizac = ([1,3,9].includes(kod)) ? "CELAL" : "CEMAL";
-        let metin = d.isAzam ? `<b>✨ İSMİ AZAM (İrade):</b> Bu evde iraden tamdır. Gezegenin (${d.g}) dengededir.` : 
-                   `<b>${d.nite} EVRESİ:</b> ${d.t} alanında ${mizac === 'CELAL' ? 'İfrat (hız)' : 'Tefrit (yavaşlık)'} sınavı var.`;
+        let statusText = d.isAzam ? `<b>✨ İSMİ AZAM:</b> İradenizin tam olduğu mühürlü alandır.` : `<b>${d.nite} EVRESİ:</b> Zamanın niteliği şu an bu alanı etkiliyor.`;
 
-        document.getElementById('cardView').innerHTML = `
-            <div class="analysis-card">
-                <h4 style="margin:0; color:var(--gold);">${d.evNo}. Ev: ${d.t} Analysis</h4>
-                <div class="desc-box">
-                    <strong>Esma:</strong> ${esmalar[d.g]}<br>
-                    ${metin}
+        document.getElementById('detailView').innerHTML = `
+            <div class="analysis-detail">
+                <h4 style="margin:0; color:var(--gold); border-bottom:1px solid #eee; padding-bottom:8px;">${d.evNo}. Ev: ${d.t} (${d.g})</h4>
+                <div class="desc-content">
+                    <strong>Esma Anahtarı:</strong> ${esmalar[d.g]}<br><br>
+                    ${statusText}<br>
+                    <small style="color:#7f8c8d;">Hicri Gün: ${d.hDay} (Miladi ay kaydırma aktif)</small>
                 </div>
             </div>`;
 
-        const waMsg = encodeURIComponent(`Merhaba KBA, ${uBurc} burcu olarak ${d.evNo}. evdeki ${d.isAzam ? 'İsmi Azam' : d.nite} durumum ve ${kod} kodum için danışmanlık almak istiyorum.`);
-        document.getElementById('waArea').innerHTML = `<a href="https://wa.me/905337381237?text=${waMsg}" target="_blank" class="wa-btn">💬 BU EVRE İÇİN ÖZEL REÇETE AL</a>`;
+        const waMsg = encodeURIComponent(`KBA Analizi Sonucu: ${d.evNo}. Ev (${d.t}) - ${d.isAzam ? 'Mühürlü' : d.nite} Durumu. Kodum: ${userKod}.`);
+        document.getElementById('waBtnArea').innerHTML = `<a href="https://wa.me/905337381237?text=${waMsg}" target="_blank" class="wa-btn">💬 ÖZEL REÇETE VE DANIŞMANLIK AL</a>`;
     }
 
-    function takeScreenshot() {
-        const area = document.getElementById('captureArea');
-        html2canvas(area).then(canvas => {
+    function saveImage() {
+        html2canvas(document.getElementById('captureArea')).then(canvas => {
             const link = document.createElement('a');
-            link.download = `KBA-Analiz-${document.getElementById('outName').innerText}.png`;
+            link.download = `KBA-Analiz-${Date.now()}.png`;
             link.href = canvas.toDataURL();
             link.click();
         });
