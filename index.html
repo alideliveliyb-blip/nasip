@@ -3,164 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KBA - Süleyman Danışmanlık</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>KBA Modüler Analiz - Süleyman</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root { --gold: #b8860b; --azam: #8e44ad; --olur: #27ae60; --sikinti: #e67e22; --olmaz: #c0392b; }
-        body { font-family: 'Poppins', sans-serif; background: #f4f7f6; margin: 0; padding: 10px; }
-        .app-container { width: 100%; max-width: 850px; background: #fff; margin: 10px auto; padding: 25px; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 1px solid #ddd; }
-        h1, h2 { text-align: center; color: var(--gold); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 20px; }
-        .house-box { background: #fff; border: 1px solid #eee; padding: 12px 5px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s; font-size: 13px; font-weight: 700; }
-        .node-azam { border: 3px solid var(--azam) !important; background: #fdfaff; }
-        .node-olur { border-bottom: 5px solid var(--olur); }
-        .node-sikinti { border-bottom: 5px solid var(--sikinti); }
-        .node-olmaz { border-bottom: 5px solid var(--olmaz); }
-        .analysis-detail { background: #fff; border: 2px solid var(--gold); padding: 20px; border-radius: 20px; margin-top: 20px; }
-        .balance-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
-        .balance-table td { padding: 10px; border-bottom: 1px solid #eee; }
-        .label { font-weight: 700; color: var(--gold); width: 100px; }
-        input, .btn-calc { width: 90%; padding: 12px; margin: 8px 0; border-radius: 12px; border: 1px solid #ddd; font-size: 16px; text-align: center; }
-        .btn-calc { background: var(--gold); color: white; border: none; font-weight: 700; cursor: pointer; }
-        .wa-btn { background: #25d366; color: white; padding: 15px; border-radius: 15px; text-decoration: none; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-top: 15px; gap: 10px; }
-        .save-btn { background: #2c3e50; color: white; width: 100%; margin-top: 15px; padding: 12px; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; }
+        body { font-family: 'Poppins', sans-serif; background: #f0f2f5; margin: 0; padding: 10px; }
+        .container { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin: 20px 0; }
+        .box { padding: 15px 5px; border-radius: 12px; text-align: center; cursor: pointer; border: 1px solid #ddd; font-weight: 600; font-size: 12px; transition: 0.2s; }
+        .mühür { border: 3px solid var(--azam) !important; background: #fdfaff; }
+        .olur { border-bottom: 5px solid var(--olur); }
+        .sikinti { border-bottom: 5px solid var(--sikinti); }
+        .olmaz { border-bottom: 5px solid var(--olmaz); }
+        .detail-card { background: #fafafa; border: 2px solid var(--gold); border-radius: 20px; padding: 20px; margin-top: 15px; }
+        .res-table { width: 100%; border-collapse: collapse; }
+        .res-table td { padding: 10px; border-bottom: 1px solid #eee; font-size: 14px; }
+        .tag { font-weight: 700; color: var(--gold); width: 120px; }
+        .status-pill { padding: 3px 8px; border-radius: 5px; color: white; font-size: 11px; }
+        input, button { width: 100%; padding: 12px; margin: 5px 0; border-radius: 10px; border: 1px solid #ccc; box-sizing: border-box; }
+        .btn-go { background: var(--gold); color: white; border: none; font-weight: 700; cursor: pointer; }
+        .wa-link { background: #25d366; color: white; text-decoration: none; display: block; text-align: center; padding: 15px; border-radius: 15px; margin-top: 15px; font-weight: 700; }
     </style>
 </head>
 <body>
 
-<div class="app-container" id="screen1">
-    <h1>KBA SİSTEMİ</h1>
-    <p style="text-align:center; color:#7f8c8d; font-size:13px;">"Gezegenlerin dilini, esmaların nuruyla oku."</p>
-    <center>
-        <input type="text" id="nameIn" placeholder="Danışan Ad Soyad">
-        <input type="number" id="ebcedIn" placeholder="Ebced Değeri">
-        <input type="date" id="birthIn">
-        <button class="btn-calc" onclick="runKBA()">ANALİZİ BAŞLAT</button>
-    </center>
+<div class="container" id="inputSection">
+    <h2 style="text-align:center; color:var(--gold);">KBA MODÜLER SİSTEM</h2>
+    <input type="text" id="name" placeholder="Ad Soyad">
+    <input type="number" id="ebced" placeholder="Ebced Değeri">
+    <input type="date" id="bdate">
+    <button class="btn-go" onclick="analizEt()">ANALİZİ BAŞLAT</button>
 </div>
 
-<div class="app-container" id="screen2" style="display:none;">
-    <div id="captureArea" style="padding:10px;">
-        <h2 id="outName" style="margin-bottom:5px;"></h2>
-        <div id="outInfo" style="text-align:center; font-weight:800; color:var(--gold); font-size:18px;"></div>
-        <div class="grid" id="gridHouses"></div>
-        <div id="detailView"></div>
+<div class="container" id="outputSection" style="display:none;">
+    <div id="printArea">
+        <h2 id="displayName" style="margin-bottom:5px;"></h2>
+        <div id="displayKod" style="text-align:center; font-weight:700; color:var(--gold); margin-bottom:10px;"></div>
+        <div class="grid" id="mainGrid"></div>
+        <div id="detailBox"></div>
     </div>
-    
-    <div id="waArea"></div>
-    <button class="save-btn" onclick="saveImage()">📷 ANALİZ KARTINI KAYDET</button>
-    <button onclick="location.reload()" style="width:100%; margin-top:10px; padding:12px; border:none; border-radius:12px; background:#eee; cursor:pointer;">YENİ ANALİZ</button>
+    <button onclick="save()" style="background:#34495e; color:white; border:none; padding:12px; width:100%; border-radius:10px; cursor:pointer; font-weight:600; margin-top:10px;">📷 SONUÇLARI KAYDET</button>
+    <div id="waBtnArea"></div>
+    <button onclick="location.reload()" style="background:#eee; border:none; padding:10px; width:100%; border-radius:10px; margin-top:10px; cursor:pointer;">🔄 YENİ ANALİZ</button>
 </div>
 
 <script>
-    const evData = [
-        { t: "Şahsiyet", g: "Mars", celal: "Ya Malik", cemal: "Ya Kuddüs" },
-        { t: "Kazanç", g: "Venüs", celal: "Ya Kafi", cemal: "Ya Gani" },
-        { t: "Çevre", g: "Merkür", celal: "Ya Ali", cemal: "Ya Azim" },
-        { t: "Yuva", g: "Ay", celal: "Ya Rahman", cemal: "Ya Rahim" },
-        { t: "Aşk/Çocuk", g: "Güneş", celal: "Ya Hay", cemal: "Ya Kayyum" },
-        { t: "Sağlık", g: "Merkür", celal: "Ya Ali", cemal: "Ya Azim" },
-        { t: "Eş/Ortak", g: "Venüs", celal: "Ya Kafi", cemal: "Ya Gani" },
-        { t: "Dönüşüm", g: "Mars", celal: "Ya Malik", cemal: "Ya Kuddüs" },
-        { t: "Ufuklar", g: "Jüpiter", celal: "Ya Kebir", cemal: "Ya Müteal" },
-        { t: "Kariyer", g: "Satürn", celal: "Ya Fettah", cemal: "Ya Rezzak" },
-        { t: "Dostlar", g: "Satürn", celal: "Ya Fettah", cemal: "Ya Rezzak" },
-        { t: "Ruhsallık", g: "Jüpiter", celal: "Ya Kebir", cemal: "Ya Müteal" }
-    ];
+const dataSet = [
+    { n: "Şahsiyet", g: "Mars", celal: "Ya Malik", cemal: "Ya Kuddüs" },
+    { n: "Kazanç", g: "Venüs", celal: "Ya Kafi", cemal: "Ya Gani" },
+    { n: "Çevre", g: "Merkür", celal: "Ya Ali", cemal: "Ya Azim" },
+    { n: "Yuva", g: "Ay", celal: "Ya Rahman", cemal: "Ya Rahim" },
+    { n: "Aşk/Neşe", g: "Güneş", celal: "Ya Hay", cemal: "Ya Kayyum" },
+    { n: "Sağlık", g: "Merkür", celal: "Ya Ali", cemal: "Ya Azim" },
+    { n: "Eş/Ortak", g: "Venüs", celal: "Ya Kafi", cemal: "Ya Gani" },
+    { n: "Dönüşüm", g: "Mars", celal: "Ya Malik", cemal: "Ya Kuddüs" },
+    { n: "Ufuklar", g: "Jüpiter", celal: "Ya Kebir", cemal: "Ya Müteal" },
+    { n: "Kariyer", g: "Satürn", celal: "Ya Fettah", cemal: "Ya Rezzak" },
+    { n: "Dostlar", g: "Satürn", celal: "Ya Fettah", cemal: "Ya Rezzak" },
+    { n: "Ruhsallık", g: "Jüpiter", celal: "Ya Kebir", cemal: "Ya Müteal" }
+];
 
-    const azamRules = {
-        1: ["Venüs", "Güneş"], 2: ["Ay"], 3: ["Merkür", "Jüpiter", "Venüs", "Satürn", "Güneş"],
-        4: ["Ay"], 5: ["Jüpiter"], 6: ["Ay"], 7: ["Jüpiter"], 8: ["Venüs"], 9: ["Mars"]
-    };
+const azamMap = { 1:["Venüs","Güneş"], 2:["Ay"], 3:["Merkür","Jüpiter","Venüs","Satürn","Güneş"], 4:["Ay"], 5:["Jüpiter"], 6:["Ay"], 7:["Jüpiter"], 8:["Venüs"], 9:["Mars"] };
 
-    function getHijriDay(baseDate, offset) {
-        let d = new Date(baseDate.getFullYear(), baseDate.getMonth() + offset, baseDate.getDate());
-        return parseInt(new Intl.DateTimeFormat('tr-TN-u-ca-islamic-uma-nu-latn', {day: 'numeric'}).format(d));
-    }
+let finalResults = [];
+let globalKod = 0;
 
-    let report = [];
-    let userKod = 0;
-    let dName = "";
+function analizEt() {
+    const ebced = document.getElementById('ebced').value;
+    const bdate = document.getElementById('bdate').value;
+    if(!ebced || !bdate) return;
 
-    function runKBA() {
-        const name = document.getElementById('nameIn').value;
-        const ebced = document.getElementById('ebcedIn').value;
-        const birth = document.getElementById('birthIn').value;
-        if(!name || !ebced || !birth) return;
+    globalKod = (parseInt(ebced) % 9) || 9;
+    const [y, m, d] = bdate.split('-').map(Number);
+    
+    document.getElementById('inputSection').style.display = 'none';
+    document.getElementById('outputSection').style.display = 'block';
+    document.getElementById('displayName').innerText = document.getElementById('name').value.toUpperCase();
+    document.getElementById('displayKod').innerText = "KADER KODU: " + globalKod;
 
-        dName = name.toUpperCase();
-        userKod = (parseInt(ebced) % 9) || 9;
-        const baseDate = new Date(birth);
+    const grid = document.getElementById('mainGrid');
+    grid.innerHTML = "";
+    finalResults = [];
 
-        document.getElementById('screen1').style.display = 'none';
-        document.getElementById('screen2').style.display = 'block';
-        document.getElementById('outName').innerText = dName;
-        document.getElementById('outInfo').innerText = "KADER KODU: " + userKod;
-
-        const grid = document.getElementById('gridHouses');
-        grid.innerHTML = "";
-        report = [];
-
-        for(let i=0; i<12; i++) {
-            let ev = evData[i];
-            let hDay = getHijriDay(baseDate, i);
-            let nite = "";
-
-            if (hDay >= 1 && hDay <= 10) nite = (ev.g === "Merkür") ? "OLMAZ" : "OLUR";
-            else if (hDay >= 11 && hDay <= 20) nite = (ev.g === "Ay" || ev.g === "Mars") ? "OLMAZ" : "SIKINTILI";
-            else { 
-                if (ev.g === "Merkür") nite = "OLUR";
-                else if (ev.g === "Ay" || ev.g === "Mars") nite = "SIKINTILI";
-                else nite = "OLMAZ";
-            }
-            if (ev.g === "Satürn") nite = (hDay <= 15) ? "OLUR" : "OLMAZ";
-
-            let isAzam = azamRules[userKod] && azamRules[userKod].includes(ev.g);
-            report.push({...ev, nite, isAzam, hDay, evNo: i+1});
-
-            let cls = isAzam ? "node-azam" : ("node-" + nite.toLowerCase().replace("ı","i"));
-            grid.innerHTML += `<div class="house-box ${cls}" onclick="showDetail(${i})">
-                ${i+1}. EV<br><small>${isAzam ? 'MÜHÜR' : nite}</small><br>
-                <span style="font-size:9px; font-weight:400;">H.Gün: ${hDay}</span>
-            </div>`;
-        }
-        showDetail(0);
-    }
-
-    function showDetail(i) {
-        const d = report[i];
-        let itidalYorum = "";
+    for(let i=0; i<12; i++) {
+        // 1. MODÜL: HİCRİ GÜN VE EVRE HESABI
+        let targetDate = new Date(y, (m-1) + i, d, 12, 0, 0);
+        let hDay = parseInt(new Intl.DateTimeFormat('tr-TN-u-ca-islamic-uma-nu-latn', {day:'numeric', calendar:'islamic-uma'}).format(targetDate));
         
-        if(userKod == 2 && d.g === "Jüpiter") {
-            itidalYorum = "İçsellikte Cemal etki ağır basar, tefritte kalma riski vardır. Evre "+d.nite+" olduğu için süreç buna göre şekillenir.";
-        } else {
-            itidalYorum = d.isAzam ? "Mühürlü Alan: İrade ve itidal tamdır." : "Celal ve Cemal dengesi mevcuttur.";
-        }
+        let ev = dataSet[i];
+        let evre = "";
+        if (ev.g === "Satürn") evre = (hDay <= 15) ? "OLUR" : "OLMAZ";
+        else if (hDay <= 10) evre = (ev.g === "Merkür") ? "OLMAZ" : "OLUR";
+        else if (hDay <= 20) evre = (ev.g === "Ay" || ev.g === "Mars") ? "OLMAZ" : "SIKINTILI";
+        else evre = (ev.g === "Merkür") ? "OLUR" : (ev.g === "Ay" || ev.g === "Mars") ? "SIKINTILI" : "OLMAZ";
 
-        document.getElementById('detailView').innerHTML = `
-            <div class="analysis-detail">
-                <h3 style="margin:0; color:var(--gold);">${d.evNo}. Ev: ${d.t}</h3>
-                <table class="balance-table">
-                    <tr><td class="label">Celal</td><td>${d.celal}</td></tr>
-                    <tr><td class="label">Cemal</td><td>${d.cemal}</td></tr>
-                    <tr><td class="label">Evre</td><td><strong>${d.nite}</strong></td></tr>
-                    <tr><td class="label">Analiz</td><td>${itidalYorum}</td></tr>
-                </table>
-            </div>`;
-        
-        const waMsg = encodeURIComponent(`Selam Süleyman Bey, KBA analizim hakkında danışmak istiyorum.\n\nİsim: ${dName}\nEv: ${d.evNo} (${d.t})\nArabi Gün: ${d.hDay}\nEvre: ${d.nite}`);
-        document.getElementById('waArea').innerHTML = `<a href="https://wa.me/905337381237?text=${waMsg}" target="_blank" class="wa-btn">💬 SÜLEYMAN BEY'E DANIŞ</a>`;
-    }
+        // 2. MODÜL: ESMA VE KOD ETKİLEŞİMİ (ITİDAL/TEFRİT)
+        let fıtrat = "İTİDAL";
+        if(globalKod == 2 && (ev.g === "Jüpiter" || ev.g === "Ay")) fıtrat = "TEFRİT (İçsel Cemal Etki)";
+        if(globalKod == 7 && ev.g === "Satürn") fıtrat = "İFRAT (Zorlanma/Baskı)";
 
-    function saveImage() {
-        html2canvas(document.getElementById('captureArea')).then(canvas => {
-            const link = document.createElement('a');
-            link.download = `${dName}-KBA.png`;
-            link.href = canvas.toDataURL();
-            link.click();
-        });
+        let isAzam = azamMap[globalKod]?.includes(ev.g);
+        finalResults.push({ ...ev, hDay, evre, fıtrat, isAzam, evNo: i+1 });
+
+        let cls = isAzam ? "mühür" : evre.toLowerCase().replace('ı','i');
+        grid.innerHTML += `<div class="box ${cls}" onclick="detayGor(${i})">${i+1}. EV<br><small>${isAzam?'MÜHÜR':evre}</small></div>`;
     }
+    detayGor(0);
+}
+
+function detayGor(i) {
+    const r = finalResults[i];
+    document.getElementById('detailBox').innerHTML = `
+        <div class="detail-card">
+            <h3 style="margin-top:0; color:var(--gold); border-bottom:1px solid #ddd;">${r.evNo}. Ev: ${r.n} (${r.g})</h3>
+            <table class="res-table">
+                <tr><td class="tag">Arabi Gün</td><td>${r.hDay}</td></tr>
+                <tr><td class="tag">Evre Durumu</td><td><strong>${r.evre}</strong></td></tr>
+                <tr><td class="tag">Esma Terkibi</td><td>${r.celal} / ${r.cemal}</td></tr>
+                <tr><td class="tag">Fıtrat Analizi</td><td>${r.isAzam ? 'İsmi Azam Mührü Aktif' : r.fıtrat}</td></tr>
+                <tr><td class="tag">Sentez Notu</td><td style="font-style:italic; font-size:12px; color:#555;">
+                    ${r.isAzam ? 'Mühürlü alan; tam irade kullanımı gerekir.' : (r.evre === 'OLUR' && r.fıtrat.includes('TEFRİT') ? 'Yol açık ancak içsel bir duraksama (tefrit) nedeniyle adım atmakta zorlanabilir.' : 'Süreci evre ve fıtrat dengesi belirler.')}
+                </td></tr>
+            </table>
+        </div>`;
+    
+    const waMsg = encodeURIComponent(`KBA Analizi\n${r.evNo}. Ev (${r.n})\nEvre: ${r.evre}\nFıtrat: ${r.fıtrat}`);
+    document.getElementById('waBtnArea').innerHTML = `<a href="https://wa.me/905337381237?text=${waMsg}" target="_blank" class="wa-link">💬 SÜLEYMAN BEY'E SOR</a>`;
+}
+
+function save() {
+    html2canvas(document.getElementById('printArea')).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'KBA-Analiz.png';
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+}
 </script>
 </body>
 </html>
