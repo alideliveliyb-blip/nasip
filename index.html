@@ -15,7 +15,7 @@
         
         .logo-area { text-align: center; margin-bottom: 30px; }
         .logo { font-size: 50px; font-weight: 800; color: var(--gold); letter-spacing: 10px; line-height: 1; }
-        .kba-sub { font-size: 12px; color: #95a5a6; letter-spacing: 4px; font-weight: 600; text-transform: uppercase; margin-top: 5px; }
+        .kba-sub { font-size: 11px; color: #95a5a6; letter-spacing: 4px; font-weight: 600; text-transform: uppercase; margin-top: 5px; }
 
         .screen { display: none; animation: fadeIn 0.5s ease; }
         .active { display: block; }
@@ -36,14 +36,16 @@
         .node-olmaz { border-bottom: 6px solid var(--olmaz); background: #fff9f9; }
         .node-azam { border-bottom: 6px solid var(--azam); background: #fdfaff; font-weight: bold; transform: scale(1.03); box-shadow: 0 5px 15px rgba(142,68,173,0.1); }
 
+        /* TOOLTIP STYLE */
+        .tooltip-trigger { display: inline-block; width: 16px; height: 16px; background: #dfe6e9; color: #636e72; border-radius: 50%; font-size: 11px; line-height: 16px; text-align: center; margin-left: 5px; cursor: help; font-weight: bold; }
+        
         .detail-view { background: #fff; border: 2px solid var(--gold); padding: 25px; margin-top: 25px; border-radius: 20px; text-align: left; position: relative; }
         .badge { padding: 6px 14px; border-radius: 8px; font-weight: 700; font-size: 11px; color: white; position: absolute; top: -12px; right: 20px; }
         
         .analysis-box { background: #f9fbfa; padding: 15px; border-radius: 12px; border-left: 4px solid var(--gold); margin-top: 15px; font-size: 14px; line-height: 1.6; }
 
         .wa-box { background: #25d366; color: white; padding: 18px; border-radius: 15px; text-decoration: none; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-top: 30px; transition: 0.3s; }
-        .wa-box:hover { background: #1ebd5a; }
-
+        
         footer { margin-top: 40px; font-size: 11px; color: #bdc3c7; text-align: center; border-top: 1px solid #eee; padding-top: 20px; }
     </style>
 </head>
@@ -52,13 +54,13 @@
 <div class="app-container">
     <div class="logo-area">
         <div class="logo">KBA</div>
-        <div class="kba-sub">KİŞİYE ÖZEL TEKAMÜL REHBERİ</div>
+        <div class="kba-sub">Fıtrat ve Kader Rehberi</div>
     </div>
 
     <div id="sc1" class="screen active">
         <div class="input-group">
             <input type="text" id="uName" placeholder="Ad Soyad">
-            <input type="number" id="uEbced" placeholder="Ebced Değeri">
+            <input type="number" id="uEbced" placeholder="İsim Ebced Değeri">
             <input type="date" id="uBirth">
         </div>
         <button class="btn" onclick="runKBA()">ANALİZİ MÜHÜRLE</button>
@@ -73,14 +75,21 @@
         <div class="grid-container" id="nodes"></div>
         <div id="details"></div>
 
-        <a href="https://wa.me/905337381237" target="_blank" class="wa-box">DANIŞMANLIK İÇİN WHATSAPP</a>
-        <button class="btn" onclick="location.reload()" style="background:#bdc3c7; font-size:14px;">YENİ ANALİZ</button>
+        <a href="https://wa.me/905XXXXXXXXX" target="_blank" class="wa-box">DANIŞMANLIK İÇİN WHATSAPP</a>
+        <button class="btn" onclick="location.reload()" style="background:#bdc3c7; font-size:14px; margin-top:15px;">YENİ ANALİZ</button>
     </div>
 
     <footer>© 2026 KB - KBA TEKAMÜL SİSTEMLERİ</footer>
 </div>
 
 <script>
+    // Tooltip Sözlüğü
+    const tipMap = {
+        mizac: "Ebced kodunuza göre ruhsal enerjinizin dışa (Celal), içe (Cemal) veya dengeye (İtidal) yönelme halidir.",
+        hicri: "Ay'ın döngüsünü esas alan Arabi takvim günüdür. Gezegen etkilerinin fıtratla uyumunu belirler.",
+        azam: "Kişinin ismine özel mühürlenen, zorlukları rahmete dönüştüren en güçlü tekamül kapısıdır."
+    };
+
     const planetPool = [
         { g: "Mars", t: "Şahsiyet", esma: "Ya Malik Ya Kuddüs", evre: "AyMars" },
         { g: "Venüs", t: "Rızık", esma: "Ya Kafi Ya Gani", evre: "VGJ" },
@@ -117,25 +126,19 @@
     }
 
     function getAzamPlanets(kod) {
-        if(kod===1) return ["Venüs", "Güneş"];
-        if([2,4,6].includes(kod)) return ["Ay"];
+        if(kod===1) return ["Venüs", "Güneş"]; if([2,4,6].includes(kod)) return ["Ay"];
         if(kod===3) return ["Satürn", "Güneş", "Merkür", "Jüpiter", "Venüs"];
-        if([5,7].includes(kod)) return ["Jüpiter"];
-        if(kod===8) return ["Venüs"];
-        if(kod===9) return ["Mars"];
-        return [];
+        if([5,7].includes(kod)) return ["Jüpiter"]; if(kod===8) return ["Venüs"];
+        if(kod===9) return ["Mars"]; return [];
     }
 
-    let results = [];
-    let currentKod = 0;
+    let results = []; let currentKod = 0;
 
     function runKBA() {
         const name = document.getElementById('uName').value, ebced = document.getElementById('uEbced').value, birth = document.getElementById('uBirth').value;
-        if(!name || !ebced || !birth) return alert("Eksik veri!");
-        
+        if(!name || !ebced || !birth) return;
         currentKod = (parseInt(ebced) % 9) || 9;
-        const zIdx = getZodiac(new Date(birth));
-        const azamPlanets = getAzamPlanets(currentKod);
+        const zIdx = getZodiac(new Date(birth)), azamPlanets = getAzamPlanets(currentKod);
         const nodes = document.getElementById('nodes');
         nodes.innerHTML = ""; results = [];
 
@@ -144,21 +147,18 @@
             let evDate = new Date(); evDate.setMonth(evDate.getMonth() + i);
             let hDay = getHicriDay(evDate);
             let status = "";
-
             if (h.evre === "AyMars") status = hDay <= 10 ? "OLUR" : (hDay <= 20 ? "OLMAZ" : "SIKINTILI");
             else if (h.evre === "Mer") status = hDay <= 10 ? "OLMAZ" : (hDay <= 20 ? "SIKINTILI" : "OLUR");
             else if (h.evre === "VGJ") status = hDay <= 10 ? "OLUR" : (hDay <= 20 ? "SIKINTILI" : "OLMAZ");
             else status = hDay <= 15 ? "GERÇEKLEŞİR" : "GERÇEKLEŞMEZ";
 
-            let isAzam = azamPlanets.includes(h.g);
-            if (isAzam) status = "İSMİ AZAM";
-
+            let isAzam = azamPlanets.includes(h.g); if (isAzam) status = "İSMİ AZAM";
             results.push({...h, status, hDay, isAzam, evNo: i+1});
             let cls = isAzam ? "node-azam" : (status.includes("OLUR") || status.includes("GERÇEK") ? "node-olur" : (status === "SIKINTILI" ? "node-sikinti" : "node-olmaz"));
             nodes.innerHTML += `<div class="house-node ${cls}" onclick="view(${i})">${i+1}. EV<br><small>${isAzam ? '✨ MÜHÜR' : h.t}</small></div>`;
         }
         document.getElementById('welcome').innerText = name.toUpperCase();
-        document.getElementById('kodBadge').innerText = "ANALİZ KODU: " + currentKod;
+        document.getElementById('kodBadge').innerText = "KODUNUZ: " + currentKod;
         document.getElementById('sc1').classList.remove('active');
         document.getElementById('sc2').classList.add('active');
         view(0);
@@ -166,8 +166,7 @@
 
     function view(i) {
         const d = results[i];
-        let mizac = ([1,3,9].includes(currentKod)) ? "Celal (Dışsal Kararlılık)" : ([2,4,6].includes(currentKod) ? "Cemal (İçsel Denge)" : "İtidal (Denge)");
-        let enerji = d.isAzam ? "Bu evre mühürlüdür; sıkıntı ve engeller İsmi Azam bereketiyle aşılır." : "Arabi gün ve gezegen doğasıyla şekillenen rutin tekamül evresi.";
+        let mizac = ([1,3,9].includes(currentKod)) ? "Celal" : ([2,4,6].includes(currentKod) ? "Cemal" : "İtidal");
         let color = d.isAzam ? "var(--azam)" : (d.status.includes("OLUR") ? "var(--olur)" : (d.status === "SIKINTILI" ? "var(--sikinti)" : "var(--olmaz)"));
 
         document.getElementById('details').innerHTML = `
@@ -175,11 +174,11 @@
                 <span class="badge" style="background:${color}">${d.status}</span>
                 <h3 style="margin:0; color:var(--gold);">${d.evNo}. Ev: ${d.t} (${d.g})</h3>
                 <div class="analysis-box">
-                    <strong>Mizaç:</strong> ${mizac}<br>
-                    <strong>TR Arabi Gün:</strong> ${d.hDay}<br>
+                    <strong>Mizaç:</strong> ${mizac} <span class="tooltip-trigger" title="${tipMap.mizac}">?</span><br>
+                    <strong>Arabi Gün:</strong> ${d.hDay} <span class="tooltip-trigger" title="${tipMap.hicri}">?</span><br>
                     <strong>Esma Terkibi:</strong> ${d.esma}<br>
                     <hr style="border:0; border-top:1px solid #eee; margin:10px 0;">
-                    <strong>Analiz:</strong> ${enerji}
+                    <strong>Analiz:</strong> ${d.isAzam ? `İSMİ AZAM <span class="tooltip-trigger" title="${tipMap.azam}">?</span> kapısı açıktır.` : 'Rutin tekamül döngüsü.'}
                 </div>
             </div>`;
     }
