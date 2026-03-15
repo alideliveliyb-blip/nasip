@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KBA - Fıtrat ve Kader Rehberi</title>
+    <title>KBA - Tekamül ve Fıtrat Analizi</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,42 +11,48 @@
             --olur: #27ae60; --sikinti: #e67e22; --olmaz: #c0392b; --azam: #8e44ad;
         }
         body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #2d3436; margin: 0; padding: 10px; }
-        .app-container { width: 100%; max-width: 800px; background: var(--card); margin: 20px auto; padding: 30px; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #e0e0e0; }
+        .app-container { width: 100%; max-width: 850px; background: var(--card); margin: 20px auto; padding: 30px; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #e0e0e0; }
         
-        /* Tooltip Geliştirme */
+        /* BÜYÜTÜLMÜŞ TOOLTIP */
         [data-tip] { position: relative; cursor: help; }
         [data-tip]:before {
-            content: attr(data-tip);
-            position: absolute; bottom: 125%; left: 50%; transform: translateX(-50%);
-            padding: 15px; width: 250px; background: #2d3436; color: #fff;
-            border-radius: 12px; font-size: 13px; font-weight: 400; line-height: 1.5;
-            text-align: center; visibility: hidden; opacity: 0; transition: 0.3s; z-index: 1000;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            content: attr(data-tip); position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%);
+            padding: 18px; width: 300px; background: #2d3436; color: #fff; border-radius: 15px;
+            font-size: 14px; font-weight: 400; line-height: 1.6; text-align: center;
+            visibility: hidden; opacity: 0; transition: 0.3s; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         [data-tip]:hover:before { visibility: visible; opacity: 1; }
+
+        /* ENERJİ BARI */
+        .energy-bar-container { width: 100%; height: 12px; background: #eee; border-radius: 6px; margin: 15px 0; overflow: hidden; position: relative; }
+        .energy-fill { height: 100%; transition: 0.8s ease-out; }
+        .energy-labels { display: flex; justify-content: space-between; font-size: 10px; color: #7f8c8d; font-weight: bold; margin-bottom: 5px; }
 
         .logo-area { text-align: center; margin-bottom: 30px; }
         .logo { font-size: 50px; font-weight: 800; color: var(--gold); letter-spacing: 10px; line-height: 1; }
         .kba-sub { font-size: 11px; color: #95a5a6; letter-spacing: 4px; font-weight: 600; text-transform: uppercase; margin-top: 5px; }
 
-        .screen { display: none; animation: fadeIn 0.5s ease; }
-        .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin-top: 30px; }
-        .house-node { background: #fff; border: 1px solid #f0f0f0; padding: 20px 10px; border-radius: 18px; cursor: pointer; text-align: center; transition: 0.3s; position: relative; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: 25px; }
+        .house-node { background: #fff; border: 1px solid #f0f0f0; padding: 18px 5px; border-radius: 20px; text-align: center; transition: 0.3s; cursor: pointer; }
+        .house-node:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         
+        .node-azam { background: #fdfaff; border-bottom: 6px solid var(--azam); font-weight: bold; transform: scale(1.02); }
         .node-olur { border-bottom: 6px solid var(--olur); }
         .node-sikinti { border-bottom: 6px solid var(--sikinti); }
         .node-olmaz { border-bottom: 6px solid var(--olmaz); }
-        .node-azam { border-bottom: 6px solid var(--azam); background: #fdfaff; font-weight: bold; transform: scale(1.03); }
 
-        .detail-view { background: #fff; border: 2px solid var(--gold); padding: 25px; margin-top: 25px; border-radius: 20px; text-align: left; }
-        .badge { padding: 8px 16px; border-radius: 10px; font-weight: 700; font-size: 12px; color: white; display: inline-block; margin-bottom: 10px; }
-        
-        .analysis-box { background: #f9fbfa; padding: 20px; border-radius: 15px; border-left: 5px solid var(--gold); line-height: 1.6; }
-        .wa-box { background: #25d366; color: white; padding: 20px; border-radius: 15px; text-decoration: none; display: flex; flex-direction: column; align-items: center; text-align: center; font-weight: 600; margin-top: 25px; gap: 5px; }
-        .wa-sub { font-size: 12px; font-weight: 400; opacity: 0.9; }
+        .detail-view { background: #fff; border: 2px solid var(--gold); padding: 25px; margin-top: 25px; border-radius: 25px; animation: slideUp 0.4s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .badge { padding: 8px 18px; border-radius: 12px; font-weight: 700; font-size: 12px; color: white; display: inline-block; margin-bottom: 12px; }
+        .analysis-box { background: #f9fbfa; padding: 20px; border-radius: 18px; border-left: 6px solid var(--gold); }
+
+        .wa-box { background: #25d366; color: white; padding: 22px; border-radius: 18px; text-decoration: none; display: flex; flex-direction: column; align-items: center; text-align: center; font-weight: 700; margin-top: 30px; transition: 0.3s; }
+        .wa-box:hover { background: #1ebd59; transform: scale(1.02); }
+
+        input { width: 85%; padding: 16px; margin: 12px 0; border-radius: 15px; border: 1.5px solid #eee; text-align: center; font-size: 16px; transition: 0.3s; }
+        input:focus { border-color: var(--gold); outline: none; }
+        .btn-main { background: var(--gold); color: white; border: none; padding: 20px 60px; border-radius: 15px; font-weight: 700; cursor: pointer; width: 90%; margin-top: 15px; }
 
         footer { margin-top: 40px; font-size: 11px; color: #bdc3c7; text-align: center; border-top: 1px solid #eee; padding-top: 20px; }
     </style>
@@ -56,137 +62,152 @@
 <div class="app-container">
     <div class="logo-area">
         <div class="logo">KBA</div>
-        <div class="kba-sub">Tekamül Analiz Motoru</div>
+        <div class="kba-sub">Fıtrat ve Tekamül Rehberi</div>
     </div>
 
-    <div id="sc1" class="screen active" style="text-align: center;">
-        <input type="text" id="uName" placeholder="Ad Soyad" style="width:85%; padding:15px; margin-bottom:15px; border-radius:12px; border:1px solid #ddd;"><br>
-        <input type="number" id="uEbced" placeholder="Ebced Değeri" style="width:85%; padding:15px; margin-bottom:15px; border-radius:12px; border:1px solid #ddd;"><br>
-        <input type="date" id="uBirth" style="width:85%; padding:15px; margin-bottom:15px; border-radius:12px; border:1px solid #ddd;"><br>
-        <button class="btn" onclick="runKBA()" style="background:var(--gold); color:white; padding:15px 40px; border:none; border-radius:12px; font-weight:bold; cursor:pointer;">ANALİZİ BAŞLAT</button>
+    <div id="sc1" class="screen" style="text-align: center;">
+        <input type="text" id="uName" placeholder="Ad Soyad">
+        <input type="number" id="uEbced" placeholder="İsim Ebced Değeri">
+        <input type="date" id="uBirth">
+        <button class="btn-main" onclick="runKBA()">ANALİZİ MÜHÜRLE</button>
     </div>
 
-    <div id="sc2" class="screen">
-        <div id="header-info" style="text-align:center;">
-            <h2 id="welcome" style="margin:0; color:var(--gold);"></h2>
-            <div id="kodBadge" style="font-weight:700; color:#7f8c8d;"></div>
+    <div id="sc2" class="screen" style="display:none;">
+        <div style="text-align:center; margin-bottom:20px;">
+            <h2 id="welcome" style="margin:0; color:var(--gold); letter-spacing: 1px;"></h2>
+            <div id="kodBadge" style="font-weight:700; font-size:15px; color:#7f8c8d; margin-top:5px;"></div>
         </div>
-        
+
         <div class="grid-container" id="nodes"></div>
         <div id="details"></div>
-
         <div id="waArea"></div>
-        <button onclick="location.reload()" style="width:100%; margin-top:15px; padding:12px; border:none; border-radius:12px; background:#eee; cursor:pointer;">YENİ ANALİZ</button>
+        
+        <button onclick="location.reload()" style="width:100%; margin-top:20px; padding:15px; border:none; border-radius:15px; background:#f1f2f6; color:#7f8c8d; font-weight:600; cursor:pointer;">YENİ ANALİZ BAŞLAT</button>
     </div>
 
     <footer>© 2026 KB - KBA TEKAMÜL SİSTEMLERİ</footer>
 </div>
 
 <script>
-    const houseTips = [
-        "1. Ev (Şahsiyet): Karakter, dış dünya duruşu ve yaşam enerjisi.",
-        "2. Ev (Rızık): Maddi kaynaklar, yetenekler ve öz değer.",
-        "3. Ev (İletişim): Zihinsel yapı, kardeşler ve yakın çevre.",
-        "4. Ev (Aile): Kökler, ev hayatı ve içsel güvenlik.",
-        "5. Ev (Neşe): Yaratıcılık, çocuklar ve hayattan alınan keyif.",
-        "6. Ev (Hizmet): Günlük rutin, sağlık ve sorumluluklar.",
-        "7. Ev (Ortaklık): Evlilik, ortaklıklar ve ikili ilişkiler.",
-        "8. Ev (Dönüşüm): Ortak kaynaklar, kriz yönetimi ve ruhsal derinlik.",
-        "9. Ev (Vizyon): İnançlar, akademik gelişim ve uzak yolculuklar.",
-        "10. Ev (Kariyer): Toplumsal statü, başarı ve yaşam amacı.",
-        "11. Ev (Sosyal): Arkadaş grupları, idealler ve sosyal projeler.",
-        "12. Ev (Bilinç): Bilinçaltı, maneviyat ve gizli güçler."
+    const evBilgisi = [
+        { burc: "Koç", konu: "Şahsiyet & Benlik", yonetici: "Mars", desc: "Karakter, dış dünya duruşu ve yaşam enerjisi alanınız." },
+        { burc: "Boğa", konu: "Rızık & Değerler", yonetici: "Venüs", desc: "Maddi kaynaklar, yetenekler ve öz değer bilinciniz." },
+        { burc: "İkizler", konu: "İletişim & Zihin", yonetici: "Merkür", desc: "Zihinsel yapı, kardeşler, eğitim ve yakın çevreniz." },
+        { burc: "Yengeç", konu: "Aile & Kökler", yonetici: "Ay", desc: "Kökler, aile bağları, ev hayatı ve içsel güvenlik alanınız." },
+        { burc: "Aslan", konu: "Neşe & Yaratıcılık", yonetici: "Güneş", desc: "Yaratıcılık, hobiler, çocuklar ve hayattan alınan keyif." },
+        { burc: "Başak", konu: "Hizmet & Sağlık", yonetici: "Merkür", desc: "Günlük rutin, sorumluluklar, hizmet ve sağlık bilinciniz." },
+        { burc: "Terazi", konu: "Ortaklık & Denge", yonetici: "Venüs", desc: "Evlilik, ikili ilişkiler ve sosyal denge alanınız." },
+        { burc: "Akrep", konu: "Dönüşüm & Kriz", yonetici: "Mars", desc: "Ortak kaynaklar, kriz yönetimi ve ruhsal derinlikler." },
+        { burc: "Yay", konu: "Vizyon & İnanç", yonetici: "Jüpiter", desc: "İnançlar, yüksek öğrenim ve ufuk genişletici yolculuklar." },
+        { burc: "Oğlak", konu: "Kariyer & Statü", yonetici: "Satürn", desc: "Toplumsal statü, başarı ve hayattaki asıl amacınız." },
+        { burc: "Kova", konu: "Sosyal & İdealler", yonetici: "Satürn", desc: "Arkadaş grupları, toplumsal projeler ve gelecek idealleri." },
+        { burc: "Balık", konu: "Bilinç & Maneviyat", yonetici: "Jüpiter", desc: "Bilinçaltı, inziva, maneviyat ve gizli güçler alanı." }
     ];
 
     const statusTips = {
-        "OLUR": "Akışın açık olduğu, desteklendiğiniz verimli evre.",
-        "SIKINTILI": "Enerjinin daraldığı, sabır ve dikkatle yönetilmesi gereken evre.",
-        "OLMAZ": "Blokaj dönemi; yeni adım atmak yerine mevcut durumu koruma vaktidir.",
-        "İSMİ AZAM": "Mühürlü alan; en yüksek koruma ve kolaylığın sağlandığı kapıdır."
+        "OLUR": "✅ Akışın desteklendiği, verimli ve hayırlı adımların atılabileceği evre.",
+        "SIKINTILI": "⚠️ Enerjinin daraldığı, sabır ve dikkatle yönetilmesi gereken imtihan evresi.",
+        "OLMAZ": "🛑 Blokaj dönemi; yeni başlangıçlar yerine mevcut durumu koruma vaktidir.",
+        "İSMİ AZAM": "✨ Mühürlü alan; en yüksek koruma ve kolaylığın sağlandığı ilahi kapıdır."
     };
 
-    const planetPool = [
-        { g: "Mars", t: "Şahsiyet", esma: "Ya Malik Ya Kuddüs", mizaç: "Celal" },
-        { g: "Venüs", t: "Rızık", esma: "Ya Kafi Ya Gani", mizaç: "Cemal" },
-        { g: "Merkür", t: "İletişim", esma: "Ya Ali Ya Azim", mizaç: "İtidal" },
-        { g: "Ay", t: "Aile", esma: "Ya Rahman Ya Rahim", mizaç: "Cemal" },
-        { g: "Güneş", t: "Neşe", esma: "Ya Hay Ya Kayyum", mizaç: "Celal" },
-        { g: "Merkür", t: "Hizmet", esma: "Ya Ali Ya Azim", mizaç: "İtidal" },
-        { g: "Mars", t: "Ortaklık", esma: "Ya Malik Ya Kuddüs", mizaç: "Celal" },
-        { g: "Venüs", t: "Dönüşüm", esma: "Ya Kafi Ya Gani", mizaç: "Cemal" },
-        { g: "Jüpiter", t: "Vizyon", esma: "Ya Kebir Ya Müteal", mizaç: "İtidal" },
-        { g: "Satürn", t: "Kariyer", esma: "Ya Fettah Ya Rezzak", mizaç: "Celal" },
-        { g: "Satürn", t: "Sosyal", esma: "Ya Fettah Ya Rezzak", mizaç: "Celal" },
-        { g: "Jüpiter", t: "Bilinç", esma: "Ya Kebir Ya Müteal", mizaç: "İtidal" }
-    ];
-
-    const zodiacs = ["Koç", "Boğa", "İkizler", "Yengeç", "Aslan", "Başak", "Terazi", "Akrep", "Yay", "Oğlak", "Kova", "Balık"];
+    const esmalar = {
+        "Mars": "Ya Malik Ya Kuddüs", "Venüs": "Ya Kafi Ya Gani", 
+        "Merkür": "Ya Ali Ya Azim", "Ay": "Ya Rahman Ya Rahim", 
+        "Güneş": "Ya Hay Ya Kayyum", "Jüpiter": "Ya Kebir Ya Müteal", 
+        "Satürn": "Ya Fettah Ya Rezzak"
+    };
 
     let results = [];
-    let userZodiac = "";
+    let userKod = 0;
 
     function runKBA() {
         const name = document.getElementById('uName').value;
         const ebced = document.getElementById('uEbced').value;
-        const birthDate = new Date(document.getElementById('uBirth').value);
+        if(!name || !ebced) return alert("Lütfen bilgileri eksiksiz girin.");
         
-        const kod = (parseInt(ebced) % 9) || 9;
-        const zodiacIdx = (birthDate.getMonth() === 2 && birthDate.getDate() >= 21) || birthDate.getMonth() > 2 ? (birthDate.getMonth() - 2) % 12 : (birthDate.getMonth() + 9) % 12;
-        userZodiac = zodiacs[zodiacIdx];
+        userKod = (parseInt(ebced) % 9) || 9;
 
-        document.getElementById('sc1').classList.remove('active');
-        document.getElementById('sc2').classList.add('active');
+        document.getElementById('sc1').style.display = 'none';
+        document.getElementById('sc2').style.display = 'block';
         document.getElementById('welcome').innerText = name.toUpperCase();
-        document.getElementById('kodBadge').innerText = "KBA ANALİZ KODU: " + kod;
+        document.getElementById('kodBadge').innerText = "KBA KADER KODU: " + userKod;
 
         const nodes = document.getElementById('nodes');
         nodes.innerHTML = "";
         results = [];
 
         for(let i=0; i<12; i++) {
-            let h = planetPool[i];
-            let status = (i + kod) % 4 === 0 ? "İSMİ AZAM" : (i % 3 === 0 ? "OLUR" : (i % 3 === 1 ? "SIKINTILI" : "OLMAZ"));
-            results.push({...h, status, evNo: i+1});
+            const ev = evBilgisi[i];
+            let status = (i % 3 === 0) ? "OLUR" : (i % 3 === 1 ? "SIKINTILI" : "OLMAZ");
             
-            let color = status === "İSMİ AZAM" ? "var(--azam)" : (status === "OLUR" ? "var(--olur)" : (status === "SIKINTILI" ? "var(--sikinti)" : "var(--olmaz)"));
-            nodes.innerHTML += `<div class="house-node" style="border-bottom: 6px solid ${color}" data-tip="${houseTips[i]}" onclick="viewDetail(${i})">${i+1}. EV<br><small>${h.t}</small></div>`;
+            // KOD 9 ÖZEL MARS MÜHRÜ
+            if(userKod === 9 && ev.yonetici === "Mars") status = "İSMİ AZAM";
+            else if((i + userKod) % 5 === 0) status = "İSMİ AZAM";
+
+            results.push({...ev, status, evNo: i+1});
+            
+            let cls = status === "İSMİ AZAM" ? "node-azam" : ("node-" + status.toLowerCase().replace("ı","i"));
+            nodes.innerHTML += `
+                <div class="house-node ${cls}" onclick="showDetail(${i})" data-tip="${ev.desc}">
+                    ${i+1}. EV<br><small>${status === 'İSMİ AZAM' ? '✨ MÜHÜR' : ev.burc}</small>
+                </div>`;
         }
-        viewDetail(0);
+        showDetail(0);
     }
 
-    function viewDetail(i) {
-        const d = results[i];
-        let fitratNotu = "";
-        
-        // Esma Terkibi Fıtri Durum Analizi
-        if(d.mizaç === "Celal") {
-            fitratNotu = "Dışsallıktan Celal etki alınıyor; bu durum ifrat hallerde öfke ve baskıya, tefrit hallerde ise iradesizliğe neden olur. Dengelenmelidir.";
-        } else if(d.mizaç === "Cemal") {
-            fitratNotu = "İçsellikten Cemal etki alınıyor; ifrat hallerde aşırı hassasiyet ve bağımlılığa, tefrit hallerde ise duygusal donukluğa yol açabilir.";
-        } else {
-            fitratNotu = "İtidal dengesinde bir akış mevcut; ancak zihinsel dağınıklık (ifrat) veya kararsızlık (tefrit) riskine karşı odaklanma gereklidir.";
-        }
+    function getTekamulNotu(durum, mizaç) {
+        const rehber = {
+            "İSMİ AZAM": "✨ Bu evre senin fıtri sığınağındır. İlahi lütuf ile mühürlenmiştir; engeller kendiliğinden kalkar, sadece niyet et ve izle.",
+            "OLUR": "✅ Hasat dönemindesin. İradeni dengeli kullanarak harekete geçmelisin.",
+            "SIKINTILI": "⚠️ Enerji daralması! Acele kararlardan kaçınmalı, bu ayı sadaka ve tefekkürle geçirmelisin.",
+            "OLMAZ": "🛑 Blokaj vakti. Yeni kapıları zorlamak yerine, iç dünyana yönelmeli ve kalelerini korumalısın."
+        };
+        let ek = mizaç === "Celal" ? " (İfrat hallerde öfkeye dikkat!)" : " (Tefrit hallerde kararsızlıktan sakın!)";
+        return rehber[durum] + ek;
+    }
 
-        let color = d.status === "İSMİ AZAM" ? "var(--azam)" : (d.status === "OLUR" ? "var(--olur)" : (d.status === "SIKINTILI" ? "var(--sikinti)" : "var(--olmaz)"));
+    function showDetail(i) {
+        const d = results[i];
+        const mizaç = ([1,3,9].includes(userKod)) ? "Celal" : ([2,4,6].includes(userKod) ? "Cemal" : "İtidal");
         
+        // Enerji Barı (Görsel Rakamsal Etki)
+        let energyVal = (userKod * 8) + (i * 2) + 10;
+        if(energyVal > 100) energyVal = 95;
+        let barColor = d.status === "İSMİ AZAM" ? "var(--azam)" : (d.status === "OLUR" ? "var(--olur)" : (d.status === "SIKINTILI" ? "var(--sikinti)" : "var(--olmaz)"));
+        
+        const tNotu = getTekamulNotu(d.status, mizaç);
+
         document.getElementById('details').innerHTML = `
             <div class="detail-view">
-                <span class="badge" style="background:${color}" data-tip="${statusTips[d.status]}">${d.status}</span>
-                <h3 style="margin:0;">${d.evNo}. Ev: ${d.t}</h3>
-                <p>Yönetici: ${d.g} | Arabi Gün: ${(i*2)+1}</p>
+                <span class="badge" style="background:${barColor}" data-tip="${statusTips[d.status]}">${d.status}</span>
+                <h3 style="margin:0;">${d.evNo}. Ev: ${d.konu} (${d.burc})</h3>
+                <p style="font-size:13px; color:#7f8c8d; margin-top:5px;">Yönetici: <b>${d.yonetici}</b> | Fıtrat: <b>${mizaç}</b></p>
+                
                 <div class="analysis-box">
-                    <strong>Esma Terkibi:</strong> ${d.esma}<br>
-                    <strong>Fıtrat Analizi:</strong> ${fitratNotu}<br><br>
-                    <strong>Tekamül Notu:</strong> ${d.status === "İSMİ AZAM" ? "Bu senin mühürlü alanındır. İsmi Azam kapısı açıktır." : "Rutin tekamül döngüsü."}
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <strong>Esma Terkibi:</strong>
+                        <span style="color:var(--gold); font-weight:700;">${esmalar[d.yonetici]}</span>
+                    </div>
+                    
+                    <div style="margin-top:15px;">
+                        <div class="energy-labels"><span>TEFRİT (Pasif)</span> <span>DENGE</span> <span>İFRAT (Aktif)</span></div>
+                        <div class="energy-bar-container">
+                            <div class="energy-fill" style="width:${energyVal}%; background:${barColor}"></div>
+                        </div>
+                    </div>
+
+                    <p style="font-size:14px; margin-top:15px; color:#2d3436; line-height:1.6;">
+                        <b>Tekamül Rehberi:</b> ${tNotu}
+                    </p>
                 </div>
             </div>`;
 
-        // WhatsApp Mesajı Düzenleme
-        const waMsg = encodeURIComponent(`${userZodiac} burcuyum. ${d.evNo}. evde ${d.status} durumum var. Bu durumun fıtratımdaki ifrat/tefrit hallerini nasıl düzenleyebilirim? Danışmanlık almak istiyorum.`);
+        const waMsg = encodeURIComponent(`${d.burc} burcuyum. ${d.evNo}. evdeki ${d.status} durumum ve KBA Kodum: ${userKod} hakkında detaylı mizaç danışmanlığı almak istiyorum.`);
         document.getElementById('waArea').innerHTML = `
             <a href="https://wa.me/905337381237?text=${waMsg}" target="_blank" class="wa-box">
-                DANIŞMANLIK İÇİN WHATSAPP HATTI
-                <span class="wa-sub">"${d.evNo}. Ev / ${d.status}" konusu hakkında uzman desteği alın.</span>
+                ÖZEL DANIŞMANLIK HATTI
+                <span style="font-size:12px; font-weight:400; margin-top:4px; opacity:0.9;">Bu evreye özel mizaç reçetesi ve esma tertibi için iletişime geçin.</span>
             </a>`;
     }
 </script>
